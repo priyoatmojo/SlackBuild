@@ -2,7 +2,7 @@
 
 # Slackware build script for wps-office
 
-# Copyright (c) 2014 Yohanes Priyo Atmojo <priyoatmojo@gmail.com>
+# Copyright (c) 2015 Yohanes Priyo Atmojo <priyoatmojo(at)gmail.com>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -21,18 +21,18 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
-# This script is just a binary repackaging.
+# This script is just a binary repackaging from .deb package.
 
 PRGNAM=wps-office
 SRCVERSION=${SRCVERSION:-9.1.0.4961~a18p1}
 VERSION=${VERSION:-9.1.0.4961_a18p1}
-BUILD=${BUILD:-1}
+BUILD=${BUILD:-2}
 TAG=${TAG:-_YPA}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
-    i?86) ARCH=i386 ; PNGARCH=i386 ;;
-    x86_64) ARCH=x86_64 ; PNGARCH=amd64 ;;
+    i?86) ARCH=i386 ; SRCARCH=i386 ;;
+    X86_64) ARCH=X86_64 ; SRCARCH=amd64 ;;
   esac
 fi
 
@@ -45,10 +45,15 @@ set -e
 
 rm -rf $PKG
 mkdir -p $TMP $PKG/opt $OUTPUT
-cd $PKG/opt
+cd $PKG
 
-tar xvf $CWD/${PRGNAM}_${SRCVERSION}_${ARCH}.tar.xz
-mv ${PRGNAM}_${SRCVERSION}_${ARCH} ${PRGNAM}
+ar p $CWD/${PRGNAM}_${SRCVERSION}_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
+
+# Add missing libpng12 from ubuntu vivid repository
+(cd $TMP
+ar p $CWD/libpng12-0_1.2.51-0ubuntu3_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
+cp lib/$ARCH-linux-gnu/* $PKG/opt/kingsoft/wps-office/office6/
+)
 
 chown -R root:root .
 find -L . \
@@ -56,52 +61,6 @@ find -L . \
   -o -perm 511 \) -exec chmod 755 {} \; -o \
  \( -perm 666 -o -perm 664 -o -perm 640 -o -perm 600 -o -perm 444 \
   -o -perm 440 -o -perm 400 \) -exec chmod 644 {} \;
-
-# Add a wrapper to run wps-office in /usr/bin
-# Its going to change the working directory to $HOME, so when you import/export
-# into/from wps-office $HOME is going to be the default directory, rather than
-# /opt/wps-office.
-(
-for PROG_NAME in et wpp wps
-do
-mkdir -p $PKG/usr/bin
-cat << EOF > $PKG/usr/bin/$PROG_NAME
-#!/bin/sh
-cd \$HOME
-/opt/wps-office/$PROG_NAME \$@
-EOF
-chmod 0755 $PKG/usr/bin/$PROG_NAME
-done
-)
-
-# Add wps-office to KDE/GNOME/XFCE menu and install an icon for them
-install -d  $PKG/usr/share/applications/
-cp -r ${PRGNAM}/resource/applications/* \
-  $PKG/usr/share/applications/
-
-install -d  $PKG/usr/share/icons/
-cp -r ${PRGNAM}/resource/icons/* \
-  $PKG/usr/share/icons/
-
-install -d $PKG/usr/share/mime/
-cp -r ${PRGNAM}/resource/mime/* \
-  $PKG/usr/share/mime/
-
-install -d $PKG/usr/share/fonts/wps-office/
-cp -r ${PRGNAM}/fonts/* \
-  $PKG/usr/share/fonts/wps-office/
-
-mkdir -p $PKG/usr/doc/$PRGNAM-$VERSION
-cd $PKG/opt/$PRGNAM
-cp -a README.txt office6/mui/default/EULA.txt \
-        $PKG/usr/doc/$PRGNAM-$VERSION
-cat $CWD/$PRGNAM.SlackBuild > $PKG/usr/doc/$PRGNAM-$VERSION/$PRGNAM.SlackBuild
-
-# Add missing libpng12 from ubuntu vivid repository
-(cd $TMP
-ar p $CWD/libpng12-0_1.2.51-0ubuntu3_${PNGARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
-cp lib/$ARCH-linux-gnu/* $PKG/opt/wps-office/office6/
-)
 
 mkdir -p $PKG/install
 cat $CWD/slack-desc > $PKG/install/slack-desc
