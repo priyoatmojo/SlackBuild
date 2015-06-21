@@ -1,0 +1,24 @@
+# HOW TO EDIT THIS FILE:
+# The "handy ruler" below makes it easier to edit a package description.
+# Line up the first '|' above the ':' following the base package name, and
+# the '|' on the right side marks the last column you can put a character in.
+# You must make exactly 11 lines for the formatting to be correct.  It's also
+# customary to leave one space after the ':' except on otherwise blank lines.
+
+                 |-----handy-ruler------------------------------------------------------|
+modem-manager-gui: modem-manager-gui (Open Source Telephony)
+modem-manager-gui:
+modem-manager-gui: Modem Manager GUI is frontend for ModemManager daemon able to control 
+modem-manager-gui: specific modem functions.
+modem-manager-gui: Main features:
+modem-manager-gui: - GTK3 interface
+modem-manager-gui: - Send and receive SMS messages with messages concatenation
+modem-manager-gui: - Send USSD request and receive answer in system encoding
+modem-manager-gui: - Get modem and SIM information (Device info, Operator name, Mode, 
+modem-manager-gui:   IMEI, IMSI/ESN, Signal level)
+modem-manager-gui: - Scan available mobile networks
+modem-manager-gui: - Control data transmission process and set session traffic and time 
+modem-manager-gui:   limits
+modem-manager-gui:
+modem-manager-gui: Homepage : http://linuxonly.ru/cms/page.php?7
+modem-manager-gui:
