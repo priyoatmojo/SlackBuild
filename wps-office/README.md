@@ -1,3 +1,7 @@
+#WPS-Office (An Office Productivity Suites)
+
+WPS-Office formerly known as Kingsoft Office is another software for Office Productivity that compatible with Microsoft PowerPoint, Words, and Excel.
+
 File you must download before you execute SlackBuild script:
 - WPS-Office binary from http://wps-community.org/download.html
 - LibPNG from http://packages.ubuntu.com/vivid/libpng12-0
