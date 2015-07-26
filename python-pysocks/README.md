@@ -5,7 +5,7 @@ python-pysocks: module.
 
 For online installer you must install **git** before you execute SlackBuild script and you have to **connected** to internet because it will clone the source code directly from https://github.com/Anorov/PySocks
 
-For offline installer, download the *.tar.bz2 file and run this command:
+For offline installer, download the latest master file form https://github.com/Anorov/PySocks/archive/master.zip and run this command:
 
 ```./python-pysocks.SlackBuild UPTODATE=no```
 
