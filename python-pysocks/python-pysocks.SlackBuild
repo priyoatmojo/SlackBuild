@@ -75,8 +75,9 @@ if [ "${UPTODATE:-yes}" != "no" ]; then
    cd -
    echo "PySocks is up to date"
 else
-   echo "Extracting PySocks git $SRCVERSION"
-   tar xvf $CWD/${PRGNAM}${SRCVERSION}.tar.?z*
+   echo "Extracting PySocks-master.zip"
+   unzip $CWD/${SRCNAM}-master.zip
+   mv ${SRCNAM}-master $SRCNAM
 fi
 
 cd $SRCNAM
