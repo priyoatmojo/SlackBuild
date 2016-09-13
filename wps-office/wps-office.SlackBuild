@@ -51,7 +51,7 @@ cd $PKG
 
 ar p $CWD/${PRGNAM}_${SRCVERSION}_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
 
-# Add missing libpng12 from ubuntu vivid repository
+# Add missing libpng12 from ubuntu xenial repository
 (cd $TMP
   ar p $CWD/${LIBPNGVER}_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
   cp lib/$ARCH-linux-gnu/* $PKG/opt/kingsoft/wps-office/office6/
