@@ -24,17 +24,19 @@
 # This script is just a binary repackaging from .deb package.
 
 PRGNAM=wps-office
-SRCVERSION=${SRCVERSION:-9.1.0.4961~a18p1}
-VERSION=${VERSION:-9.1.0.4961_a18p1}
-BUILD=${BUILD:-2}
+SRCVERSION=${SRCVERSION:-10.1.0.5672~a21}
+VERSION=${VERSION:-10.1.0.5672_a21}
+BUILD=${BUILD:-1}
 TAG=${TAG:-_YPA}
 
 if [ -z "$ARCH" ]; then
   case "$( uname -m )" in
     i?86) ARCH=i386 ; SRCARCH=i386 ;;
-    X86_64) ARCH=X86_64 ; SRCARCH=amd64 ;;
+    x86_64) ARCH=x86_64 ; SRCARCH=amd64 ;;
   esac
 fi
+
+LIBPNGVER=${LIBPNGVER:-libpng12-0_1.2.54-1ubuntu1}
 
 CWD=$(pwd)
 TMP=${TMP:-/tmp/YPA}
@@ -51,8 +53,8 @@ ar p $CWD/${PRGNAM}_${SRCVERSION}_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || e
 
 # Add missing libpng12 from ubuntu vivid repository
 (cd $TMP
-ar p $CWD/libpng12-0_1.2.51-0ubuntu3_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
-cp lib/$ARCH-linux-gnu/* $PKG/opt/kingsoft/wps-office/office6/
+  ar p $CWD/${LIBPNGVER}_${SRCARCH}.deb data.tar.xz | bsdtar -xf - || exit 1
+  cp lib/$ARCH-linux-gnu/* $PKG/opt/kingsoft/wps-office/office6/
 )
 
 chown -R root:root .
