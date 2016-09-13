@@ -11,5 +11,4 @@ Choose your package according to your OS architecture.
 - If you use 64-bit, download the amd64 or X86_64 file.
 
 NB:
-To avoid warning pop-up window when running wps-office, please install MT Font first to your system.
-Link : http://www.ffonts.net/MT-Extra.font
+To avoid warning pop-up window when running wps-office, please install MT Extra font to your system. (http://www.ffonts.net/MT-Extra.font)
